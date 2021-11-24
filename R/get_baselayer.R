@@ -8,10 +8,9 @@
 
 get_baselayer <- function() {
 
-  base_layer <- sf::read_sf("https://api.dataforsyningen.dk/regioner?format=geojson")
-  base_layer <- sf::st_transform(base_layer,
-                                 crs = 4326)
-  base_layer <- sf::st_union(base_layer)
+  base_layer <- sf::read_sf("https://api.dataforsyningen.dk/regioner?format=geojson") %>%
+    sf::st_transform(crs = 4326) %>%
+    sf::st_union()
 
   return(base_layer)
 
