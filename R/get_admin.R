@@ -54,10 +54,10 @@ get_admin <- function(spatial = TRUE,
   data <- sf::read_sf(url) %>%
     sf::st_transform(crs = 4326)
 
-  # df_get_baselayer <- claudius::get_baselayer()
-  #
-  # data <- data %>%
-  #   sf::st_intersection(df_get_baselayer)
+  df_get_baselayer <- claudius::get_baselayer()
+
+  data <- data %>%
+    sf::st_intersection(df_get_baselayer)
 
   return(data)
 
