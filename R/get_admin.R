@@ -11,8 +11,8 @@
 get_admin <- function(spatial = TRUE,
                       level = NULL) {
 
-  check_input_cc_get_admin(spatial = spatial,
-                           level = level)
+  check_input_get_admin(spatial = spatial,
+                        level = level)
 
   base_url1 <- "https://api.dataforsyningen.dk/"
   base_url2 <- "?format=geojson"
