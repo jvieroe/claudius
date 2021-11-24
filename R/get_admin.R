@@ -61,5 +61,4 @@ get_admin <- function(spatial = TRUE,
 
   return(data)
 
-
 }
