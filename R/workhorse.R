@@ -16,7 +16,7 @@ check_input_get_admin <- function(spatial,
                                       "parish",
                                       "constituency",
                                       "zip")) {
-    stop("Invalid 'level' argument provided. Must be one of names(cclavus::admin_levels)")
+    stop("Invalid 'level' argument provided. Must be one of names(claudius::admin_levels)")
   }
 
 }

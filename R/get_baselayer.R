@@ -1,12 +1,15 @@
 #' Get lorem ipsum
 #'
 #' lorem ipsum
+#' @param crs_transform Transform the CRS? Default is `FALSE`, which maintains the CRS at 4326.
+#' @param crs A valid EPSG code. Required when `crs_transform = TRUE`. Transform the CRS by specifying a valid EPSG-code (see `rgdal::make_EPSG()$code` for a list of valid EPSG codes)
 #' @return data lorem ipsum
 #' @author Jeppe Vierø
 #' @import sf dplyr readr rgdal
 #' @export
 
-get_baselayer <- function(new_crs = NULL) {
+get_baselayer <- function(crs_transform = FALSE,
+                          crs = NULL) {
 
   base_layer <- sf::read_sf("https://api.dataforsyningen.dk/regioner?format=geojson")
 
@@ -24,14 +27,14 @@ get_baselayer <- function(new_crs = NULL) {
   base_layer <- base_layer %>%
     sf::st_union()
 
-  if (!is.null(new_crs)) {
+  if (crs_transform == TRUE) {
 
     check_input_get_baselayer(new_crs = new_crs)
 
     base_layer <- base_layer %>%
       sf::st_transform(crs = new_crs)
 
-  } else if (is.null(new_crs)) {
+  } else if (crs_transform == FALSE) {
 
     base_layer <- base_layer
 
