@@ -1,8 +1,8 @@
 Package: claudius
-Title: What the Package Does (One Line, Title Case)
+Title: simple features spatial data on Denmark
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
+    person("Jeppe", "Vierø", , "jvieroe@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
 License: GPL (>= 3)
