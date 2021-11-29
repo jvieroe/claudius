@@ -4,7 +4,7 @@
 \alias{get_admin}
 \title{Get lorem ipsum}
 \usage{
-get_admin(spatial = TRUE, level = NULL, crs_transform = FALSE, crs)
+get_admin(spatial = TRUE, level = NULL, crs_transform = FALSE, crs = NULL)
 }
 \arguments{
 \item{spatial}{a logical value. Return data of class \code{sf}? Defaults to \code{TRUE}}

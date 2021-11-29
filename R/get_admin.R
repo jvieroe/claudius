@@ -13,7 +13,7 @@
 get_admin <- function(spatial = TRUE,
                       level = NULL,
                       crs_transform = FALSE,
-                      crs) {
+                      crs = NULL) {
 
   check_input_get_admin(spatial = spatial,
                         level = level)
