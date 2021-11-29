@@ -1,4 +1,4 @@
-## code to prepare `DATASET` dataset goes here
+## code to prepare `baselayer` dataset goes here
 baselayer <- sf::read_sf("https://api.dataforsyningen.dk/regioner?format=geojson")
 baselayer <- sf::st_transform(baselayer,
                               crs = 4326)
@@ -37,6 +37,12 @@ usethis::use_data(baselayer, overwrite = TRUE, compress = "xz")
 # }
 #
 # CheckLazyDataCompression(pkg = "C:/Users/jevi/OneDrive - Epinion/Documents/GitHub/claudius")
+
+
+
+## code to prepare `vs` dataset goes here
+
+
 
 
 tools::add_datalist(pkgpath = "C:/Users/jevi/OneDrive - Epinion/Documents/GitHub/claudius")

@@ -2,52 +2,88 @@
 #'
 #' lorem ipsum
 #' @param spatial a logical value. Return data of class `sf`? Defaults to `TRUE`
-#' @param level lorem ipsum
-#' @param crs_transform Transform the CRS? Default is `FALSE`, which maintains the CRS at 4326.
-#' @param new_crs A valid EPSG code. Required when `crs_transform = TRUE`. Transform the CRS by specifying a valid EPSG-code (see `rgdal::make_EPSG()$code` for a list of valid EPSG codes)
 #' @return data lorem ipsum
 #' @author Jeppe Vierø
 #' @import sf dplyr
 #' @export
 
-get_ps <- function(spatial = TRUE,
-                   level = NULL,
-                   crs_transform = FALSE,
-                   new_crs = NULL) {
+get_ps <- function(spatial = TRUE) {
 
-  check_input_get_ps(spatial = spatial,
-                     level = level,
-                     crs_transform = crs_transform,
-                     new_crs = new_crs)
+  check_input_get_ps(spatial = spatial)
 
-  if (level == "kreds"){
+  url <- "https://api.dataforsyningen.dk/afstemningsomraader?format=geojson"
 
-    url <- "https://api.dataforsyningen.dk/afstemningsomraader?format=geojson"
+  ps <- sf::read_sf(url)
 
-  } else if (level == "storkreds") {
+  labelled::var_label(ps) <- base::colnames(ps)
 
-    url <- "https://api.dataforsyningen.dk/storkredse?format=geojson"
+  ps <- ps %>%
+    tibble::tibble() %>%
+    janitor::clean_names() %>%
+    dplyr::rename(dagi_id = .data$dagi_id,
+                  number = .data$nummer,
+                  name = .data$navn,
+                  station = .data$afstemningsstednavn,
+                  st_id = .data$afstemningsstedadresseid,
+                  st_add = .data$afstemningsstedadressebetegnelse,
+                  st_lon = .data$afstemningssted_adgangspunkt_x,
+                  st_lat = .data$afstemningssted_adgangspunkt_y,
+                  muni_code = .data$kommunekode,
+                  muni = .data$kommunenavn,
+                  regi_code = .data$regionskode,
+                  regi = .data$regionsnavn,
+                  kreds_id = .data$opstillingskredsnummer,
+                  kreds = .data$opstillingskredsnavn,
+                  stkreds_id = .data$storkredsnummer,
+                  stkreds = .data$storkredsnavn,
+                  valg_ld_l = .data$valglandsdelsbogstav,
+                  valg_ld = .data$valglandsdelsnavn,
+                  edit = .data$aendret,
+                  geo_edit = .data$geo_aendret,
+                  geo_v = .data$geo_version,
+                  vcent_lon = .data$visueltcenter_x,
+                  vcent_lat = .data$visueltcenter_y) %>%
+    sf::st_as_sf() %>%
+    sf::st_cast("MULTIPOLYGON")
+
+  ps <- ps %>%
+    dplyr::mutate(edit = lubridate::ymd_hms(.data$edit),
+                  geo_edit = lubridate::ymd_hms(.data$geo_edit)) %>%
+    dplyr::mutate(edit = base::as.character(.data$edit),
+                  geo_edit = base::as.character(.data$geo_edit)) %>%
+    dplyr::mutate(muni_code = as.numeric(.data$muni_code),
+                  regi_code = as.numeric(.data$regi_code))
+
+  ps <- ps %>%
+    dplyr::left_join(claudius::vs,
+                     by = c("name" = "Valgsted.navn",
+                            "muni_code" = "KommuneNr")) %>%
+    dplyr::select(c("dagi_id",
+                    "ps_id",
+                    base::setdiff(names(ps), c("dagi_id",
+                                               "ps_id"))))
+
+  if (spatial == TRUE) {
+
+    if (readr::parse_number(sf::st_crs(ps)[[1]]) != 4326) {
+
+      ps <- ps %>%
+        sf::st_transform(crs = 4326)
+
+    } else if (readr::parse_number(sf::st_crs(ps)[[1]]) == 4326) {
+
+      ps <- ps
+
+    }
+
+  } else if (spatial == FALSE) {
+
+    ps <- ps %>%
+      tibble::tibble() %>%
+      dplyr::select(-.data$geometry)
 
   }
 
-  data <- sf::read_sf(url)
-
-  if (readr::parse_number(sf::st_crs(base_layer)[[1]]) != 4326) {
-
-    data <- sf::read_sf(url) %>%
-      sf::st_transform(crs = 4326)
-
-  } else if (readr::parse_number(sf::st_crs(base_layer)[[1]]) == 4326) {
-
-    data <- data
-
-  }
-
-  df_get_baselayer <- claudius::read_baselayer(as_sf = TRUE)
-
-  data <- data %>%
-    sf::st_intersection(df_get_baselayer)
-
-  return(data)
+  return(ps)
 
 }

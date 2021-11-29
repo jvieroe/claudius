@@ -22,10 +22,19 @@ check_input_get_admin <- function(spatial,
 }
 
 #' @noRd
-check_input_get_ps <- function(spatial,
-                               level,
-                               crs_transform,
-                               new_crs) {
+check_input_get_ps <- function(spatial) {
+
+  if(!spatial %in% c(TRUE, FALSE)) {
+    stop("Invalid 'spatial' argument provided. Must be logical")
+  }
+
+}
+
+
+#' @noRd
+check_input_get_constituency <- function(spatial,
+                                         crs_transform,
+                                         new_crs) {
 
   if(!spatial %in% c(TRUE, FALSE)) {
     stop("Invalid 'spatial' argument provided. Must be logical")
