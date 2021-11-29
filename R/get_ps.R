@@ -4,7 +4,7 @@
 #' @param spatial a logical value. Return data of class `sf`? Defaults to `TRUE`
 #' @return data lorem ipsum
 #' @author Jeppe Vierø
-#' @import sf dplyr
+#' @import sf dplyr labelled readr tibble lubridate janitor
 #' @export
 
 get_ps <- function(spatial = TRUE) {
