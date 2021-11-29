@@ -4,12 +4,16 @@
 \alias{get_admin}
 \title{Get lorem ipsum}
 \usage{
-get_admin(spatial = TRUE, level = NULL)
+get_admin(spatial = TRUE, level = NULL, crs_transform = FALSE)
 }
 \arguments{
 \item{spatial}{a logical value. Return data of class \code{sf}? Defaults to \code{TRUE}}
 
 \item{level}{lorem ipsum}
+
+\item{crs_transform}{Transform the CRS? Default is \code{FALSE}, which maintains the CRS at 4326.}
+
+\item{crs}{A valid EPSG code. Required when \code{crs_transform = TRUE}. Transform the CRS by specifying a valid EPSG-code (see \code{rgdal::make_EPSG()$code} for a list of valid EPSG codes)}
 }
 \value{
 data lorem ipsum
