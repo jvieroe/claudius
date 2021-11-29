@@ -25,7 +25,7 @@ CheckLazyDataCompression <- function(pkg)
   ceiling(res/1024)
 }
 
-CheckLazyDataCompression("C:/Users/jevi/OneDrive - Epinion/Documents/GitHub/claudius")
+CheckLazyDataCompression(pkg = "C:/Users/jevi/OneDrive - Epinion/Documents/GitHub/claudius")
 
 
 tools::add_datalist(pkgpath = "C:/Users/jevi/OneDrive - Epinion/Documents/GitHub/claudius")
