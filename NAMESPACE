@@ -3,6 +3,7 @@
 export("%>%")
 export(get_admin)
 export(get_baselayer)
+export(read_baselayer)
 import(dplyr)
 import(readr)
 import(rgdal)
