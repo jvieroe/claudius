@@ -21,7 +21,7 @@ check_input_get_admin <- function(spatial,
 
 }
 
-
+#' @noRd
 check_input_get_baselayer <- function(new_crs) {
 
   if(!is.null(new_crs) && !is.numeric(new_crs)) {
@@ -30,6 +30,15 @@ check_input_get_baselayer <- function(new_crs) {
 
   if(!is.null(new_crs) && !new_crs %in% c(rgdal::make_EPSG()$code)) {
     stop("Invalid 'new_crs' argument provided. Must be one of c(rgdal::make_EPSG()$code)")
+  }
+
+}
+
+#' @noRd
+check_read_baselayer <- function(as_sf) {
+
+  if(!as_sf %in% c(TRUE, FALSE)) {
+    stop("Invalid 'as_sf' argument provided. Must be logical")
   }
 
 }

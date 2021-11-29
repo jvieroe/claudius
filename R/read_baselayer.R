@@ -9,6 +9,8 @@
 
 read_baselayer <- function(as_sf = TRUE) {
 
+  check_read_baselayer(as_sf = as_sf)
+
   baselayer <- claudius::baselayer
 
   if (as_sf == TRUE) {
