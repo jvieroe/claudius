@@ -41,8 +41,23 @@ usethis::use_data(baselayer, overwrite = TRUE, compress = "xz")
 
 
 ## code to prepare `vs` dataset goes here
-vs <- read.csv("/Users/jeppeviero/Dropbox/github/Geografiske_stamdata.csv")
+vs <- utils::read.csv("/Users/jeppeviero/Dropbox/github/vs_df.csv",
+                      sep = ";")
 
+vs <- vs %>%
+  dplyr::select(c(Valgsted.navn,
+                  Valgsted.Id,
+                  KommuneNr)) %>%
+  dplyr::rename(ps_id = Valgsted.Id) %>%
+  tibble::tibble()
+
+Encoding(vs$Valgsted.navn) <- "latin1"
+Encoding(vs$Valgsted.navn)
+Encoding(vs$Valgsted.navn) <- "UTF-8"
+Encoding(vs$Valgsted.navn)
+
+
+usethis::use_data(vs, overwrite = TRUE, internal = FALSE)
 
 
 tools::add_datalist(pkgpath = "C:/Users/jevi/OneDrive - Epinion/Documents/GitHub/claudius")
