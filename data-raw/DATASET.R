@@ -41,7 +41,7 @@ usethis::use_data(baselayer, overwrite = TRUE, compress = "xz")
 
 
 ## code to prepare `vs` dataset goes here
-
+vs <- read.csv("/Users/jeppeviero/Dropbox/github/Geografiske_stamdata.csv")
 
 
 
