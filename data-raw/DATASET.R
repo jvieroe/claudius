@@ -7,4 +7,7 @@ baselayer <- geojsonio::geojson_json(baselayer)
 
 usethis::use_data(baselayer, overwrite = TRUE, compress = "xz")
 
+tools::resaveRdaFiles(paths = "C:/Users/jevi/OneDrive - Epinion/Documents/GitHub/claudius/data/baselayer.rda",
+                      compress = "auto")
+
 tools::add_datalist(pkgpath = "C:/Users/jevi/OneDrive - Epinion/Documents/GitHub/claudius")
