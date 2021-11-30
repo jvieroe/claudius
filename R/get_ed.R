@@ -3,15 +3,13 @@
 #' lorem ipsum
 #' @param spatial a logical value. Return data of class `sf`? Defaults to `TRUE`
 #' @param level lorem ipsum
-#' @param crs_transform Transform the CRS? Default is `FALSE`, which maintains the CRS at 4326.
-#' @param new_crs A valid EPSG code. Required when `crs_transform = TRUE`. Transform the CRS by specifying a valid EPSG-code (see `rgdal::make_EPSG()$code` for a list of valid EPSG codes)
 #' @return data lorem ipsum
 #' @author Jeppe Vierø
 #' @import sf dplyr
 #' @export
 
 get_ed <- function(spatial = TRUE,
-                             level = NULL) {
+                   level = NULL) {
 
   check_input_get_ed(spatial = spatial,
                      level = level)
