@@ -10,13 +10,11 @@
 #' @import sf dplyr
 #' @export
 
-get_ps <- function(spatial = TRUE,
-                   crs_transform = FALSE,
-                   new_crs = NULL) {
+get_ed <- function(spatial = TRUE,
+                             level = NULL) {
 
-  check_input_get_ps(spatial = spatial,
-                     crs_transform = crs_transform,
-                     new_crs = new_crs)
+  check_input_get_ed(spatial = spatial,
+                     level = level)
 
   if (level == "kreds"){
 
